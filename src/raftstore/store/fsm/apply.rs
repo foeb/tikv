@@ -1257,7 +1257,10 @@ impl ApplyDelegate {
         let end_key = keys::data_end_key(e_key);
         let region_end_key = keys::data_end_key(self.region.get_end_key());
         if end_key > region_end_key {
-            return Err(Error::KeyNotInRegion(e_key.to_vec(), self.region.clone()));
+            return Err(Error::KeyNotInRegion(
+                e_key.to_vec(),
+                Box::new(self.region.clone()),
+            ));
         }
 
         let resp = Response::default();

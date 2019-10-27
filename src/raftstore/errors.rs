@@ -52,7 +52,7 @@ quick_error! {
             description("peer is not leader")
             display("peer is not leader for region {}, leader may {:?}", region_id, leader)
         }
-        KeyNotInRegion(key: Vec<u8>, region: metapb::Region) {
+        KeyNotInRegion(key: Vec<u8>, region: Box<metapb::Region>) {
             description("key is not in region")
             display("key {} is not in region key range [{}, {}) for region {}",
                     hex::encode_upper(key),

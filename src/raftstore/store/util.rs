@@ -61,7 +61,10 @@ pub fn check_key_in_region_exclusive(key: &[u8], region: &metapb::Region) -> Res
     if start_key < key && (key < end_key || end_key.is_empty()) {
         Ok(())
     } else {
-        Err(Error::KeyNotInRegion(key.to_vec(), region.clone()))
+        Err(Error::KeyNotInRegion(
+            key.to_vec(),
+            Box::new(region.clone()),
+        ))
     }
 }
 
@@ -72,7 +75,10 @@ pub fn check_key_in_region_inclusive(key: &[u8], region: &metapb::Region) -> Res
     if key >= start_key && (end_key.is_empty() || key <= end_key) {
         Ok(())
     } else {
-        Err(Error::KeyNotInRegion(key.to_vec(), region.clone()))
+        Err(Error::KeyNotInRegion(
+            key.to_vec(),
+            Box::new(region.clone()),
+        ))
     }
 }
 
@@ -83,7 +89,10 @@ pub fn check_key_in_region(key: &[u8], region: &metapb::Region) -> Result<()> {
     if key >= start_key && (end_key.is_empty() || key < end_key) {
         Ok(())
     } else {
-        Err(Error::KeyNotInRegion(key.to_vec(), region.clone()))
+        Err(Error::KeyNotInRegion(
+            key.to_vec(),
+            Box::new(region.clone()),
+        ))
     }
 }
 
